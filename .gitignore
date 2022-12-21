@@ -25,7 +25,8 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
-/src/main/kotlin/application.*
+/src/main/kotlin/application.properties
+/src/main/kotlin/application.yml
 
 ### NetBeans ###
 /nbproject/private/
