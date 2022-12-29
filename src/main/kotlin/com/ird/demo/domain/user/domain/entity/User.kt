@@ -1,5 +1,6 @@
 package com.ird.demo.domain.user.domain.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -15,13 +16,18 @@ class User(
 
     val profileUri: String?,
 
-    val grade: Int,
+    val grade: Long,
 
-    val classNum: Int,
+    val classNum: Long,
 
-    val number: Int,
+    val num: Long,
 
-    val refresh: String
+    val refresh: String,
+
+    @JsonIgnore
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    val student: Student? = null
+
 ) {
     fun updateRefresh(refresh: String): User {
         return User(
@@ -31,8 +37,9 @@ class User(
             profileUri = profileUri,
             grade = grade,
             classNum = classNum,
-            number = number,
-            refresh = refresh
+            num = num,
+            refresh = refresh,
+            student = student
         )
     }
 }

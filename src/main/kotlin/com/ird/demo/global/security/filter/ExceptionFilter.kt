@@ -1,9 +1,9 @@
 package com.ird.demo.global.security.filter
 
-import com.example.helloworld.global.error.exception.BasicException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.ird.demo.global.error.ErrorCode
 import com.ird.demo.global.error.ErrorResponse
+import com.ird.demo.global.error.exception.BasicException
 import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component

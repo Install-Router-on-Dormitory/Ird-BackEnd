@@ -43,8 +43,8 @@ class AuthConverter(
             grade = gAuthUserResponseDto.grade,
             profileUri = gAuthUserResponseDto.profileUrl,
             classNum = gAuthUserResponseDto.classNum,
-            number = gAuthUserResponseDto.num,
-            refresh = ""
+            num = gAuthUserResponseDto.num,
+            refresh = "",
         )
 
     fun toEntity(userInfo: User, refresh: String): User =
@@ -54,7 +54,7 @@ class AuthConverter(
             grade = userInfo.grade,
             profileUri = userInfo.profileUri,
             classNum = userInfo.classNum,
-            number = userInfo.number,
-            refresh = refresh
+            num = userInfo.num,
+            refresh = refresh,
         )
 }

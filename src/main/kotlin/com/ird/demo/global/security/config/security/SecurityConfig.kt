@@ -41,6 +41,12 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/auth/login").permitAll()
             .antMatchers(HttpMethod.GET, "/auth/redirect").permitAll()
 
+            .antMatchers(HttpMethod.POST, "/students").authenticated()
+            .antMatchers(HttpMethod.GET, "/students").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/students").permitAll()
+
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
+
             .anyRequest().denyAll()
             .and()
             .exceptionHandling()

@@ -1,8 +1,8 @@
 package com.ird.demo.domain.auth.presentation
 
 import com.ird.demo.domain.auth.presentation.data.reponse.TokenResponseDto
-import com.ird.demo.domain.auth.service.RedirectService
 import com.ird.demo.domain.auth.service.LoginService
+import com.ird.demo.domain.auth.service.RedirectService
 import com.ird.demo.domain.auth.util.AuthConverter
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -18,13 +18,13 @@ class AuthController(
     private val authConverter: AuthConverter
 ) {
 
-    @GetMapping("/login")
+    @GetMapping("/redirect")
     fun login(): ResponseEntity<Void> {
         loginService.execute()
         return ResponseEntity.ok().build()
     }
 
-    @GetMapping("/redirect")
+    @GetMapping("/login")
     fun redirectUrl(@RequestParam(value = "code") code: String): ResponseEntity<TokenResponseDto?> {
         authConverter.toDto(code)
             .let { redirectService.execute(it) }

@@ -1,7 +1,7 @@
 package com.ird.demo.global.error.handler
 
-import com.example.helloworld.global.error.exception.BasicException
 import com.ird.demo.global.error.ErrorResponse
+import com.ird.demo.global.error.exception.BasicException
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
