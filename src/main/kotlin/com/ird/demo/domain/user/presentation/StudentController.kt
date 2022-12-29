@@ -1,5 +1,6 @@
 package com.ird.demo.domain.user.presentation
 
+import com.ird.demo.domain.user.presentation.data.request.AddStudentRequestDto
 import com.ird.demo.domain.user.presentation.data.response.StudentResponseDto
 import com.ird.demo.domain.user.service.AddStudentService
 import com.ird.demo.domain.user.service.DeleteStudentService
@@ -18,19 +19,24 @@ class StudentController(
 ) {
 
     @PostMapping
-    fun addStudent(): ResponseEntity<Void> {
-        addStudentService.execute()
-        return ResponseEntity.ok().build()
-    }
+    fun addStudent(
+        @RequestHeader("Authorization") authorization: String,
+        @RequestBody addStudentRequestDto: AddStudentRequestDto
+    ): ResponseEntity<Void> =
+        studentConverter.toDto(addStudentRequestDto, authorization)
+            .let { addStudentService.execute(it) }
+            .let { ResponseEntity.ok().build() }
+
 
     @GetMapping
-    fun getStudentList(): ResponseEntity<List<StudentResponseDto>> {
-        return ResponseEntity.ok(getStudentListService.execute())
-    }
+    fun getStudentList(): ResponseEntity<List<StudentResponseDto>> =
+        ResponseEntity.ok(getStudentListService.execute())
+
 
     @DeleteMapping("/{studentId}")
     fun deleteStudent(@PathVariable("studentId") studentId: Long): ResponseEntity<Void> =
         studentConverter.toDto(studentId)
             .let { deleteStudentService.execute(it) }
             .let { ResponseEntity.ok().build() }
+
 }
