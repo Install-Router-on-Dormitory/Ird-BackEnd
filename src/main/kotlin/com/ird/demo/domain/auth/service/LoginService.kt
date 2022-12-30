@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
 import java.time.ZonedDateTime
+import java.util.*
 import javax.validation.constraints.Null
 
 @Service
@@ -61,21 +62,21 @@ class LoginService(
             val gAuthUserResponseDto: GAuthUserResponseDto =
                 objectMapper.readValue(loginResponse.body, object : TypeReference<GAuthUserResponseDto>() {})
 
-            val userInfo: User = authConverter.toEntity(gAuthUserResponseDto)
 
             //엑세스 토큰 이랑 리프레시를 우리꺼 JWT 붙여서 반환.
-            val access: String = jwtTokenProvider.generateAccessToken(userInfo.email)
-            val refresh: String = jwtTokenProvider.generateRefreshToken(userInfo.email)
+            val access: String = jwtTokenProvider.generateAccessToken(gAuthUserResponseDto.email)
+            val refresh: String = jwtTokenProvider.generateRefreshToken(gAuthUserResponseDto.email)
             val accessExp: ZonedDateTime = jwtTokenProvider.accessExpiredTime
 
-            if (userRepository.existsUserByEmail(email = userInfo.email)) {
-                val updateUser: User = userInfo.updateRefresh(refresh)
-                userRepository.save(updateUser)
+            val userInfo: Optional<User> = userRepository.findUserByEmail(gAuthUserResponseDto.email)
+
+            if (userInfo.isPresent) {
+                val updateUser: User = userInfo.orElseThrow { throw RuntimeException() }
+                updateUser.updateRefresh(refresh)
             } else {
-                val user: User = authConverter.toEntity(userInfo, refresh)
+                val user: User = authConverter.toEntity(gAuthUserResponseDto, refresh)
                 userRepository.save(user)
             }
-
             return authConverter.toDto(access, refresh, accessExp)
 
         } catch (e: Exception) {

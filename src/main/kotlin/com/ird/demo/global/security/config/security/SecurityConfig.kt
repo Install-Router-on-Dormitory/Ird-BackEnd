@@ -43,7 +43,8 @@ class SecurityConfig(
 
             .antMatchers(HttpMethod.POST, "/students").permitAll()
             .antMatchers(HttpMethod.GET, "/students").permitAll()
-            .antMatchers(HttpMethod.DELETE, "/students/{studentId}  ").permitAll()
+            .antMatchers(HttpMethod.DELETE, "/students/{studentId}").permitAll()
+            .antMatchers(HttpMethod.GET, "/students/check").authenticated()
 
             .antMatchers(HttpMethod.GET, "/user").authenticated()
 

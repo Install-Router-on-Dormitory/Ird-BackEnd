@@ -30,16 +30,17 @@ class User(
 
 ) {
     fun updateRefresh(refresh: String): User {
-        return User(
-            id = id,
-            email = email,
-            name = name,
-            profileUri = profileUri,
-            grade = grade,
-            classNum = classNum,
-            num = num,
+        val user = User(
+            email = this.email,
+            name = this.name,
+            profileUri = this.profileUri,
+            grade = this.grade,
+            classNum = this.classNum,
+            num = this.num,
             refresh = refresh,
-            student = student
+            student = this.student
         )
+        user.id = this.id
+        return user
     }
 }

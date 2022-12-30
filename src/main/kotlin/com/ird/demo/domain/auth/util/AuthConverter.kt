@@ -36,7 +36,7 @@ class AuthConverter(
     fun toHttpEntity(headers: HttpHeaders): HttpEntity<Null> =
         HttpEntity(null, headers)
 
-    fun toEntity(gAuthUserResponseDto: GAuthUserResponseDto): User =
+    fun toEntity(gAuthUserResponseDto: GAuthUserResponseDto, refresh: String): User =
         User(
             email = gAuthUserResponseDto.email,
             name = gAuthUserResponseDto.name,
@@ -44,17 +44,6 @@ class AuthConverter(
             profileUri = gAuthUserResponseDto.profileUrl,
             classNum = gAuthUserResponseDto.classNum,
             num = gAuthUserResponseDto.num,
-            refresh = "",
-        )
-
-    fun toEntity(userInfo: User, refresh: String): User =
-        User(
-            email = userInfo.email,
-            name = userInfo.name,
-            grade = userInfo.grade,
-            profileUri = userInfo.profileUri,
-            classNum = userInfo.classNum,
-            num = userInfo.num,
             refresh = refresh,
         )
 }
