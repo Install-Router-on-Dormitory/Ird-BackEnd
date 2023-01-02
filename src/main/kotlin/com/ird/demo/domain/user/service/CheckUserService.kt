@@ -2,6 +2,7 @@ package com.ird.demo.domain.user.service
 
 import com.ird.demo.domain.user.domain.entity.User
 import com.ird.demo.domain.user.domain.repository.StudentRepository
+import com.ird.demo.domain.user.exception.StudentNotFoundException
 import com.ird.demo.domain.user.util.UserUtil
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -15,7 +16,9 @@ class CheckUserService(
     @Transactional
     fun execute(): Boolean {
         val userInfo: User = userUtil.fetchCurrentUser()
-        return studentRepository.existsByUserId(userInfo.id)
+        if (!studentRepository.existsByUserId(userInfo.id))
+            throw StudentNotFoundException()
+        return true
     }
 
 }

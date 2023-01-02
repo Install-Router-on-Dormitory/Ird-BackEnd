@@ -7,5 +7,7 @@ enum class ErrorCode(
     UNAUTHORIZED(401, "인증되지 않았습니다"),
     EXPIRED_TOKEN(401, "만료된 토큰입니다"),
 
+    STUDENT_NOT_FOUND(404, "입소하지 않은 학생입니다."),
+
     INTERNAL_SERVER_ERROR(500, "알지못하는 에러입니다"),
 }
