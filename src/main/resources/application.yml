@@ -2,10 +2,10 @@ spring:
   messages:
     encoding: UTF-8
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/took?serverTimezone=Asia/Seoul
-    username: yoon
-    password: 1234
+
+    url: jdbc:mariadb://sihundb/kopling?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: root
+    password: 12345678
   jpa:
     hibernate:
       ddl-auto: create
@@ -13,6 +13,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+    database-platform: org.hibernate.dialect.MariaDB105Dialect
 
 
 jwt:
